@@ -1,11 +1,14 @@
-import React from 'react';
+import * as React from 'react'
+import { Route, Routes } from 'react-router';
 import './App.css';
+
+const Chat = React.lazy(() => import('./pages/Chat'))
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello World!
-    </h1>
+    <Routes>
+      <Route path="/" element={<Chat />} />
+    </Routes>
   );
 }
 
