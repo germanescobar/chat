@@ -10,7 +10,7 @@ function Navbar() {
           </div>
           <div className="flex flex-col">
             <a href="/home" className="text-2xl no-underline text-grey-darkest hover:text-blue-dark font-sans font-bold">MIRChat</a>
-            <span className="text-xs text-grey-dark">A Chat Example</span>
+            <span className="text-xs text-grey-dark">Make It Real Chat</span>
           </div>
         </div>
       </div>
