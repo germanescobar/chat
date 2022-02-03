@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  labels:
+    app: chat-frontend
+spec:
+  containers:
+  - name: frontend-ctr
+    image: germanescobar/chat-frontend
+    ports:
+    - containerPort: 80
