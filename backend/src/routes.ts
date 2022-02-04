@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
+import redis from './redis'
 import Message from './models/Message'
 import Room from './models/Room'
+import { IRoom } from './types'
 
 const router = express.Router()
 
@@ -10,8 +12,28 @@ router.get('/', (req: Request, res: Response) => {
 
 router.get('/rooms', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const rooms = await Room.find({})
+    let rooms = JSON.parse(await redis.get("rooms"))
+    if (!rooms) {
+      rooms = await Room.find({})
+      await redis.set('rooms', JSON.stringify(rooms))
+    }
+    
     res.json(rooms)
+  } catch (e) {
+    next(e)
+  }
+})
+
+router.get('/rooms/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    let room: IRoom = JSON.parse(await redis.get(`rooms:${id}`))
+    if (!room) {
+      room = await Room.findById(id) 
+      await redis.set(`rooms:${id}`, JSON.stringify(room), { EX: 300 })
+    }
+    
+    res.json(room)
   } catch (e) {
     next(e)
   }

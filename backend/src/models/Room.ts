@@ -1,11 +1,9 @@
 import * as mongoose from 'mongoose'
+import { IRoom } from '../types'
 
-interface Room {
-  name: String
-}
 
-const schema = new mongoose.Schema<Room>({
+const schema = new mongoose.Schema<IRoom>({
   name: String,
 })
 
-export default mongoose.model<Room>('Room', schema)
+export default mongoose.model<IRoom>('Room', schema)
